@@ -1,0 +1,162 @@
+
+
+/*index page*/
+
+body{
+    background-color: black;
+    margin:0;
+}
+
+header{
+    background-color: black;
+}
+
+#logo{
+    width: 7%;
+    float: left;
+}
+
+#titulo{
+    font-size: 145%;
+    color: lightgrey;
+    margin-left: 5%;
+}
+
+#flammboo{
+    font-size: 190%;
+    color: white;
+}
+
+#subtitulo{
+    font-size: 135%;
+    color: lightgrey;
+    margin-left: 10%;
+}
+
+.indexblock{
+    background-color: #0f0f0f;
+}
+
+.indextitle{
+    font-size: 200%;
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px black;
+}
+
+.indeximage{
+    min-height: 900px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#idimage1{
+    background-image: url("images/index/boat.png");
+}
+#idimage2{
+    background-image: url("images/index/mount.png");
+}
+#idimage3{
+    background-image: url("images/index/city.png");
+}
+#idimage4{
+    background-image: url("images/index/2bit.png");
+}
+#idimage5{
+    background-image: url("images/index/ragda.png");
+}
+
+.indextext{
+    font-size: 125%;
+    color: gray;
+    text-align: center;
+    text-shadow: 2px 2px black;
+    margin-left: 30%;
+    margin-right: 30%;
+    white-space: pre-wrap;
+}
+  
+.pagelink{
+    font-size: 125%;
+    color: rgb(144, 144, 144);
+    text-shadow: 2px 2px black;
+    text-align: center;
+}
+
+footer{
+    background-color: #0f0f0f;
+}
+
+*{
+    box-sizing: border-box;
+}
+  
+.textbox{
+    float: left;
+    width: 33.33%;
+    padding: 50px;
+}
+  
+.clearfix::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.indextitleF{
+    font-size: 140%;
+    color: white;
+    text-align: center;
+    text-shadow: 3px 3px black;
+}
+
+.indextextF{
+    font-size: 135%;
+    color: gray;
+    text-shadow: 2px 2px black;
+    text-align: center;
+}
+
+
+
+/*exclusive games, start with game*/
+
+.gamebody{
+    background-color: #f53838;
+}
+
+.gameblock{
+    background-color: #a62929;
+    width: 100%;
+}
+
+.gametitle{
+    font-size: 50px;
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px black;
+}
+
+.gameimage{
+    display: block;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2%;
+    border-radius: 1%;
+    border-color: black;
+    border-width: 2%;
+    border-style: solid;
+}
+
+.gametext{
+    font-size: 20px;
+    color: white;
+    text-align: left;
+    text-shadow: 2px 2px black;
+    margin-left: 10%;
+    margin-right: 10%;
+    white-space: pre-wrap;
+}
