@@ -1,5 +1,4 @@
 
-
 /*index page*/
 
 body{
@@ -17,18 +16,18 @@ header{
 }
 
 #titulo{
-    font-size: 145%;
+    font-size: 1.5vw;
     color: lightgrey;
     margin-left: 5%;
 }
 
 #flammboo{
-    font-size: 190%;
+    font-size: 3.5vw;
     color: white;
 }
 
 #subtitulo{
-    font-size: 135%;
+    font-size: 1.5vw;
     color: lightgrey;
     margin-left: 10%;
 }
@@ -38,7 +37,7 @@ header{
 }
 
 .indextitle{
-    font-size: 200%;
+    font-size: 2vw;
     color: white;
     text-align: center;
     text-shadow: 2px 2px black;
@@ -46,6 +45,7 @@ header{
 
 .indeximage{
     min-height: 900px;
+    min-width: 900px;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -69,17 +69,17 @@ header{
 }
 
 .indextext{
-    font-size: 125%;
+    font-size: 1.5vw;
     color: gray;
     text-align: center;
     text-shadow: 2px 2px black;
-    margin-left: 30%;
-    margin-right: 30%;
+    margin-left: 15%;
+    margin-right: 15%;
     white-space: pre-wrap;
 }
   
 .pagelink{
-    font-size: 125%;
+    font-size: 1.5vw;
     color: rgb(144, 144, 144);
     text-shadow: 2px 2px black;
     text-align: center;
@@ -105,15 +105,16 @@ footer{
     display: table;
 }
 
+
 .indextitleF{
-    font-size: 140%;
+    font-size: 1.7vw;
     color: white;
     text-align: center;
     text-shadow: 3px 3px black;
 }
 
 .indextextF{
-    font-size: 135%;
+    font-size: 1.5vw;
     color: gray;
     text-shadow: 2px 2px black;
     text-align: center;
