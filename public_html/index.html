@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="css/chessboard-1.0.0.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="js/chessboard-1.0.0.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-image">
+            <image class = "imagem" src = "imagens/karpo.jpg"></image>
+            <p>André Carpa (bagre)</p>
+            <p>Jogando de brancas</p>
+        </div>
+        <div class="center-object">
+            <div id="board1" style="width: 80%"></div>
+        </div>
+        <div class="right-image">
+            <image class = "imagem" src = "imagens/alex.jpg"></image>
+            <p>Alexandre Klimas (favorito)</p>
+            <p>Jogando de pretas</p>
+        </div>
+    </div>
+    <br>
+    <div class="center-object">
+        <button id="flipOrientationBtn">Flip orientation</button>
+        <button id="last" onclick="last()">ANTERIOR</button>
+        <button id="next" onclick="next()">SEGUINTE</button>
+    </div>
+    <p class="center-object" id = "lance">Lance: 0</p>
+    <p class="center-object" id = "vez">Jogam as Brancas</p>
+
+    <div class="center-object">
+        <p id = "lances">1.d4 c5 2.d5 e5 3.e4 d6 4.Nc3 g6 5.h4 Bg7 6.h5 g5 7.Bb5+ Nd7
+            8.h6 Bf6 9.Qh5 a6 10.Bxd7+ Bxd7 11.Nf3 g4 12.Ng5 Bxg5 13.Bxg5
+            Qb6 14.O-O-O Ne7 15.Bxe7 Kxe7 16.Qg5+ Kf8 17.Qe3 Rg8 18.f4 Re8
+            19.Rh5 f6 20.Rf1 Ke7 21.Qg3 Kd8 22.Qh4 Kc8 23.a3 Bb5 24.Rf2 c4
+            25.Rf5 Qe3+ 26.Kb1 Rg6 27.Re2 Qg1+ 28.Ka2 Rf8 29.fxe5 dxe5
+            30.Qg3 Rxh6 31.Qe3 Qh1 32.Rd2 Kb8 33.g3 Rh3 34.Ne2 Rh6 35.d6
+            Bd7 36.Rf2 Qh5 37.Rd1 Qg6 38.Nc3 Rh5 39.Nd5 Be6 40.Nc7 1-0</p>
+    </div>
+
+    <script>
+        var index_lance = 0;
+        var klikar = ['rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq d3 0 1',
+'rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq d3 0 1',
+'rnbqkbnr/pp1ppppp/8/2p5/3P4/8/PPP1PPPP/RNBQKBNR w KQkq c6 0 2',
+'rnbqkbnr/pp1ppppp/8/2pP4/8/8/PPP1PPPP/RNBQKBNR b KQkq - 0 2',
+'rnbqkbnr/pp1p1ppp/8/2pPp3/8/8/PPP1PPPP/RNBQKBNR w KQkq e6 0 3',
+'rnbqkbnr/pp1p1ppp/8/2pPp3/4P3/8/PPP2PPP/RNBQKBNR b KQkq e3 0 3',
+'rnbqkbnr/pp3ppp/3p4/2pPp3/4P3/8/PPP2PPP/RNBQKBNR w KQkq - 0 4',
+'rnbqkbnr/pp3ppp/3p4/2pPp3/4P3/2N5/PPP2PPP/R1BQKBNR b KQkq - 1 4',
+'rnbqkbnr/pp3p1p/3p2p1/2pPp3/4P3/2N5/PPP2PPP/R1BQKBNR w KQkq - 0 5',
+'rnbqkbnr/pp3p1p/3p2p1/2pPp3/4P2P/2N5/PPP2PP1/R1BQKBNR b KQkq h3 0 5',
+'rnbqk1nr/pp3pbp/3p2p1/2pPp3/4P2P/2N5/PPP2PP1/R1BQKBNR w KQkq - 1 6',
+'rnbqk1nr/pp3pbp/3p2p1/2pPp2P/4P3/2N5/PPP2PP1/R1BQKBNR b KQkq - 0 6',
+'rnbqk1nr/pp3pbp/3p4/2pPp1pP/4P3/2N5/PPP2PP1/R1BQKBNR w KQkq - 0 7',
+'rnbqk1nr/pp3pbp/3p4/1BpPp1pP/4P3/2N5/PPP2PP1/R1BQK1NR b KQkq - 1 7',
+'r1bqk1nr/pp1n1pbp/3p4/1BpPp1pP/4P3/2N5/PPP2PP1/R1BQK1NR w KQkq - 2 8',
+'r1bqk1nr/pp1n1pbp/3p3P/1BpPp1p1/4P3/2N5/PPP2PP1/R1BQK1NR b KQkq - 0 8',
+'r1bqk1nr/pp1n1p1p/3p1b1P/1BpPp1p1/4P3/2N5/PPP2PP1/R1BQK1NR w KQkq - 1 9',
+'r1bqk1nr/pp1n1p1p/3p1b1P/1BpPp1pQ/4P3/2N5/PPP2PP1/R1B1K1NR b KQkq - 2 9',
+'r1bqk1nr/1p1n1p1p/p2p1b1P/1BpPp1pQ/4P3/2N5/PPP2PP1/R1B1K1NR w KQkq - 0 10',
+'r1bqk1nr/1p1B1p1p/p2p1b1P/2pPp1pQ/4P3/2N5/PPP2PP1/R1B1K1NR b KQkq - 0 10',
+'r2qk1nr/1p1b1p1p/p2p1b1P/2pPp1pQ/4P3/2N5/PPP2PP1/R1B1K1NR w KQkq - 0 11',
+'r2qk1nr/1p1b1p1p/p2p1b1P/2pPp1pQ/4P3/2N2N2/PPP2PP1/R1B1K2R b KQkq - 1 11',
+'r2qk1nr/1p1b1p1p/p2p1b1P/2pPp2Q/4P1p1/2N2N2/PPP2PP1/R1B1K2R w KQkq - 0 12',
+'r2qk1nr/1p1b1p1p/p2p1b1P/2pPp1NQ/4P1p1/2N5/PPP2PP1/R1B1K2R b KQkq - 1 12',
+'r2qk1nr/1p1b1p1p/p2p3P/2pPp1bQ/4P1p1/2N5/PPP2PP1/R1B1K2R w KQkq - 0 13',
+'r2qk1nr/1p1b1p1p/p2p3P/2pPp1BQ/4P1p1/2N5/PPP2PP1/R3K2R b KQkq - 0 13',
+'r3k1nr/1p1b1p1p/pq1p3P/2pPp1BQ/4P1p1/2N5/PPP2PP1/R3K2R w KQkq - 1 14',
+'r3k1nr/1p1b1p1p/pq1p3P/2pPp1BQ/4P1p1/2N5/PPP2PP1/2KR3R b kq - 2 14',
+'r3k2r/1p1bnp1p/pq1p3P/2pPp1BQ/4P1p1/2N5/PPP2PP1/2KR3R w kq - 3 15',
+'r3k2r/1p1bBp1p/pq1p3P/2pPp2Q/4P1p1/2N5/PPP2PP1/2KR3R b kq - 0 15',
+'r6r/1p1bkp1p/pq1p3P/2pPp2Q/4P1p1/2N5/PPP2PP1/2KR3R w - - 0 16',
+'r6r/1p1bkp1p/pq1p3P/2pPp1Q1/4P1p1/2N5/PPP2PP1/2KR3R b - - 1 16',
+'r4k1r/1p1b1p1p/pq1p3P/2pPp1Q1/4P1p1/2N5/PPP2PP1/2KR3R w - - 2 17',
+'r4k1r/1p1b1p1p/pq1p3P/2pPp3/4P1p1/2N1Q3/PPP2PP1/2KR3R b - - 3 17',
+'r4kr1/1p1b1p1p/pq1p3P/2pPp3/4P1p1/2N1Q3/PPP2PP1/2KR3R w - - 4 18',
+'r4kr1/1p1b1p1p/pq1p3P/2pPp3/4PPp1/2N1Q3/PPP3P1/2KR3R b - f3 0 18',
+'4rkr1/1p1b1p1p/pq1p3P/2pPp3/4PPp1/2N1Q3/PPP3P1/2KR3R w - - 1 19',
+'4rkr1/1p1b1p1p/pq1p3P/2pPp2R/4PPp1/2N1Q3/PPP3P1/2KR4 b - - 2 19',
+'4rkr1/1p1b3p/pq1p1p1P/2pPp2R/4PPp1/2N1Q3/PPP3P1/2KR4 w - - 0 20',
+'4rkr1/1p1b3p/pq1p1p1P/2pPp2R/4PPp1/2N1Q3/PPP3P1/2K2R2 b - - 1 20',
+'4r1r1/1p1bk2p/pq1p1p1P/2pPp2R/4PPp1/2N1Q3/PPP3P1/2K2R2 w - - 2 21',
+'4r1r1/1p1bk2p/pq1p1p1P/2pPp2R/4PPp1/2N3Q1/PPP3P1/2K2R2 b - - 3 21',
+'3kr1r1/1p1b3p/pq1p1p1P/2pPp2R/4PPp1/2N3Q1/PPP3P1/2K2R2 w - - 4 22',
+'3kr1r1/1p1b3p/pq1p1p1P/2pPp2R/4PPpQ/2N5/PPP3P1/2K2R2 b - - 5 22',
+'2k1r1r1/1p1b3p/pq1p1p1P/2pPp2R/4PPpQ/2N5/PPP3P1/2K2R2 w - - 6 23',
+'2k1r1r1/1p1b3p/pq1p1p1P/2pPp2R/4PPpQ/P1N5/1PP3P1/2K2R2 b - - 0 23',
+'2k1r1r1/1p5p/pq1p1p1P/1bpPp2R/4PPpQ/P1N5/1PP3P1/2K2R2 w - - 1 24',
+'2k1r1r1/1p5p/pq1p1p1P/1bpPp2R/4PPpQ/P1N5/1PP2RP1/2K5 b - - 2 24',
+'2k1r1r1/1p5p/pq1p1p1P/1b1Pp2R/2p1PPpQ/P1N5/1PP2RP1/2K5 w - - 0 25',
+'2k1r1r1/1p5p/pq1p1p1P/1b1PpR2/2p1PPpQ/P1N5/1PP2RP1/2K5 b - - 1 25',
+'2k1r1r1/1p5p/p2p1p1P/1b1PpR2/2p1PPpQ/P1N1q3/1PP2RP1/2K5 w - - 2 26',
+'2k1r1r1/1p5p/p2p1p1P/1b1PpR2/2p1PPpQ/P1N1q3/1PP2RP1/1K6 b - - 3 26',
+'2k1r3/1p5p/p2p1prP/1b1PpR2/2p1PPpQ/P1N1q3/1PP2RP1/1K6 w - - 4 27',
+'2k1r3/1p5p/p2p1prP/1b1PpR2/2p1PPpQ/P1N1q3/1PP1R1P1/1K6 b - - 5 27',
+'2k1r3/1p5p/p2p1prP/1b1PpR2/2p1PPpQ/P1N5/1PP1R1P1/1K4q1 w - - 6 28',
+'2k1r3/1p5p/p2p1prP/1b1PpR2/2p1PPpQ/P1N5/KPP1R1P1/6q1 b - - 7 28',
+'2k2r2/1p5p/p2p1prP/1b1PpR2/2p1PPpQ/P1N5/KPP1R1P1/6q1 w - - 8 29',
+'2k2r2/1p5p/p2p1prP/1b1PPR2/2p1P1pQ/P1N5/KPP1R1P1/6q1 b - - 0 29',
+'2k2r2/1p5p/p4prP/1b1PpR2/2p1P1pQ/P1N5/KPP1R1P1/6q1 w - - 0 30',
+'2k2r2/1p5p/p4prP/1b1PpR2/2p1P1p1/P1N3Q1/KPP1R1P1/6q1 b - - 1 30',
+'2k2r2/1p5p/p4p1r/1b1PpR2/2p1P1p1/P1N3Q1/KPP1R1P1/6q1 w - - 0 31',
+'2k2r2/1p5p/p4p1r/1b1PpR2/2p1P1p1/P1N1Q3/KPP1R1P1/6q1 b - - 1 31',
+'2k2r2/1p5p/p4p1r/1b1PpR2/2p1P1p1/P1N1Q3/KPP1R1P1/7q w - - 2 32',
+'2k2r2/1p5p/p4p1r/1b1PpR2/2p1P1p1/P1N1Q3/KPPR2P1/7q b - - 3 32',
+'1k3r2/1p5p/p4p1r/1b1PpR2/2p1P1p1/P1N1Q3/KPPR2P1/7q w - - 4 33',
+'1k3r2/1p5p/p4p1r/1b1PpR2/2p1P1p1/P1N1Q1P1/KPPR4/7q b - - 0 33',
+'1k3r2/1p5p/p4p2/1b1PpR2/2p1P1p1/P1N1Q1Pr/KPPR4/7q w - - 1 34',
+'1k3r2/1p5p/p4p2/1b1PpR2/2p1P1p1/P3Q1Pr/KPPRN3/7q b - - 2 34',
+'1k3r2/1p5p/p4p1r/1b1PpR2/2p1P1p1/P3Q1P1/KPPRN3/7q w - - 3 35',
+'1k3r2/1p5p/p2P1p1r/1b2pR2/2p1P1p1/P3Q1P1/KPPRN3/7q b - - 0 35',
+'1k3r2/1p1b3p/p2P1p1r/4pR2/2p1P1p1/P3Q1P1/KPPRN3/7q w - - 1 36',
+'1k3r2/1p1b3p/p2P1p1r/4p3/2p1P1p1/P3Q1P1/KPPRNR2/7q b - - 2 36',
+'1k3r2/1p1b3p/p2P1p1r/4p2q/2p1P1p1/P3Q1P1/KPPRNR2/8 w - - 3 37',
+'1k3r2/1p1b3p/p2P1p1r/4p2q/2p1P1p1/P3Q1P1/KPP1NR2/3R4 b - - 4 37',
+'1k3r2/1p1b3p/p2P1pqr/4p3/2p1P1p1/P3Q1P1/KPP1NR2/3R4 w - - 5 38',
+'1k3r2/1p1b3p/p2P1pqr/4p3/2p1P1p1/P1N1Q1P1/KPP2R2/3R4 b - - 6 38',
+'1k3r2/1p1b3p/p2P1pq1/4p2r/2p1P1p1/P1N1Q1P1/KPP2R2/3R4 w - - 7 39',
+'1k3r2/1p1b3p/p2P1pq1/3Np2r/2p1P1p1/P3Q1P1/KPP2R2/3R4 b - - 8 39',
+'1k3r2/1p5p/p2Pbpq1/3Np2r/2p1P1p1/P3Q1P1/KPP2R2/3R4 w - - 9 40',
+'1k3r2/1pN4p/p2Pbpq1/4p2r/2p1P1p1/P3Q1P1/KPP2R2/3R4 b - - 10 40',
+    ]
+        var board1 = ChessBoard('board1', 'start');
+
+        $('#flipOrientationBtn').on('click', board1.flip)
+        function last () {
+            index_lance = Math.max(0, index_lance-1);
+            board1.position(klikar[index_lance]);
+            document.getElementById('lance').innerHTML = "Lance: " + Math.ceil(index_lance/2);
+            if ((index_lance)%2 == 0){
+                document.getElementById('vez').innerHTML = "Jogam as Brancas";
+            }
+            else{
+                document.getElementById('vez').innerHTML = "Jogam as Pretas";
+            }
+        }
+        function next () {
+            index_lance++;
+            board1.position(klikar[index_lance]);
+            document.getElementById('lance').innerHTML = "Lance: " + Math.ceil(index_lance/2);
+            if ((index_lance)%2 == 0){
+                document.getElementById('vez').innerHTML = "Jogam as Brancas";
+            }
+            else{
+                document.getElementById('vez').innerHTML = "Jogam as Pretas";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+
+body {
+    background-image: url('/imagens/bcg.avif'); /* Substitua com o URL do seu padrão */
+    background-size: 20%;
+    background-repeat: repeat;
+    font-size:x-large;
+    font-weight: bold;
+}
+
+.container {
+    display: flex; /* Use Flexbox */
+    justify-content: space-between; /* Distribua os elementos igualmente no espaço disponível */
+    align-items: center; /* Alinhe verticalmente no centro */
+}
+
+/* Estilos para as imagens */
+.left-image,
+.right-image {
+    flex: 1; /* As imagens ocuparão o espaço disponível igualmente */
+    justify-content: center; /* Centralize horizontalmente */
+    align-items: center; /* Centralize verticalmente */
+}
+
+.imagem{
+    width: 70%;
+    border: 2px solid #333;
+}
+
+/* Estilos para o objeto no meio */
+.center-object {
+    display: flex; /* Use Flexbox */
+    flex: 2; /* O objeto ocupará mais espaço no centro */
+    justify-content: center; /* Centralize horizontalmente */
+    align-items: center; /* Centralize verticalmente */
+}
+
+#lances{
+    width: 30%;
+}
